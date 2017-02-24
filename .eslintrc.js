@@ -24,4 +24,5 @@ module.exports = {
     'react/prop-types': 'off',
     'react/sort-comp': 'off',
   },
+  'parser': 'babel-eslint',
 };
