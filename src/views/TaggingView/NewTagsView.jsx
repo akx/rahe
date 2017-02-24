@@ -6,16 +6,10 @@ import {Flex, Box} from 'reflexbox';
 import {Input, Table, Button} from 'antd';
 import {truncate, debounce, uniq, identity} from 'lodash';
 
-import tagTransactions from '../utils/tagTransactions';
+import tagTransactions from '../../utils/tagTransactions';
+import cmp from '../../utils/cmp';
 
-const cmp = (a, b) => {
-  if (a < b) return -1;
-  if (a > b) return +1;
-  return 0;
-};
-
-
-class TaggingView extends React.Component {
+class NewTagsView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -211,4 +205,4 @@ export default connect(
     transactions: state.transactions,
     tags: state.tags || [],
   })
-)(TaggingView);
+)(NewTagsView);
