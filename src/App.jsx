@@ -2,17 +2,20 @@ import React from 'react';
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
 import ImportView from './views/ImportView';
 import WelcomeView from './views/WelcomeView';
+import TaggingView from './views/TaggingView';
 
 const {Content, Footer, Sider} = Layout;
 
 const viewNames = {
   'welcome': 'Welcome',
   'import': 'Import',
+  'tagging': 'Tagging',
 };
 
 const viewComponents = {
   'welcome': () => <WelcomeView />,
   'import': () => <ImportView />,
+  'tagging': () => <TaggingView />,
 };
 
 export default class App extends React.Component {
@@ -41,10 +44,16 @@ export default class App extends React.Component {
                 <span className="nav-text">Import Data</span>
               </span>
             </Menu.Item>
+            <Menu.Item key="tagging">
+              <span>
+                <Icon type="tag" />
+                <span className="nav-text">Tagging</span>
+              </span>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout>
-          <Content style={{margin: '0 16px'}}>
+          <Content style={{margin: '0 16px', flex: 'auto', display: 'flex', flexDirection: 'column'}}>
             <Breadcrumb style={{margin: '12px 0'}}>
               <Breadcrumb.Item>Rahe</Breadcrumb.Item>
               <Breadcrumb.Item>{viewName}</Breadcrumb.Item>
