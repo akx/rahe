@@ -3,60 +3,74 @@ import {Layout, Menu, Breadcrumb, Icon} from 'antd';
 import ImportView from './views/ImportView';
 import WelcomeView from './views/WelcomeView';
 import TaggingView from './views/TaggingView';
+import {connect} from 'react-redux';
 
 const {Content, Footer, Sider} = Layout;
 
-const viewNames = {
-  'welcome': 'Welcome',
-  'import': 'Import',
-  'tagging': 'Tagging',
-};
+const views = [
+  {
+    id: 'welcome',
+    title: 'Welcome',
+    component: () => <WelcomeView />,
+    icon: 'money',
+  },
+  {
+    id: 'import',
+    title: 'Import',
+    menuTitle: 'Import Data',
+    component: () => <ImportView />,
+    icon: 'file',
+  },
+  {
+    id: 'tagging',
+    title: 'Tagging',
+    menuTitle: 'Tagging',
+    component: () => <TaggingView />,
+    icon: 'tag',
+  },
+];
+const viewMap = views.reduce((map, v) => {
+  map[v.id] = v;
+  return map;
+}, {});
 
-const viewComponents = {
-  'welcome': () => <WelcomeView />,
-  'import': () => <ImportView />,
-  'tagging': () => <TaggingView />,
-};
+const ViewMenu = ({selected, onSelect}) => (
+  <Menu
+    theme="dark"
+    mode="inline"
+    selectedKeys={[selected]}
+    onSelect={({key}) => onSelect(key)}
+  >
+    {
+      views.map((v) => (
+        <Menu.Item key={v.id}>
+          <Icon type={v.icon} />
+          <span className="nav-text">{v.menuTitle || v.title}</span>
+        </Menu.Item>
+      ))
+    }
+  </Menu>
+);
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {view: 'welcome'};
-  }
 
+class App extends React.Component {
   render() {
-    const {view} = this.state;
-    const viewName = viewNames[view] || view;
-    const viewComponent = (viewComponents[view] || (() => view))();
+    const {viewId, dispatch} = this.props;
+    const view = viewMap[viewId];
+    const viewComponent = (view ? view.component : (() => viewId))();
     return (
       <Layout>
         <Sider>
-          <Menu theme="dark" mode="inline" selectedKeys={[view]} onSelect={({key}) => this.setState({view: key})}>
-            <Menu.Item key="welcome">
-              <span>
-                <Icon type="money" />
-                <span className="nav-text"><b>Rahe</b></span>
-              </span>
-            </Menu.Item>
-            <Menu.Item key="import">
-              <span>
-                <Icon type="file" />
-                <span className="nav-text">Import Data</span>
-              </span>
-            </Menu.Item>
-            <Menu.Item key="tagging">
-              <span>
-                <Icon type="tag" />
-                <span className="nav-text">Tagging</span>
-              </span>
-            </Menu.Item>
-          </Menu>
+          <ViewMenu
+            selected={viewId}
+            onSelect={(viewId) => dispatch({type: 'NAVIGATE_MAIN', payload: viewId})}
+          />
         </Sider>
         <Layout>
           <Content style={{margin: '0 16px', flex: 'auto', display: 'flex', flexDirection: 'column'}}>
             <Breadcrumb style={{margin: '12px 0'}}>
               <Breadcrumb.Item>Rahe</Breadcrumb.Item>
-              <Breadcrumb.Item>{viewName}</Breadcrumb.Item>
+              <Breadcrumb.Item>{view.title}</Breadcrumb.Item>
             </Breadcrumb>
             {viewComponent}
           </Content>
@@ -66,3 +80,7 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default connect(
+  (state) => ({viewId: state.app.view})
+)(App);
