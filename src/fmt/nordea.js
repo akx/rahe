@@ -1,5 +1,5 @@
 import R from 'ramda';
-import {splitTSVLines, parseFinnishDate, parseDecimal} from './utils';
+import {hashSimpleObject, splitTSVLines, parseFinnishDate, parseDecimal} from './utils';
 
 const fieldNameMap = {
   'arvopäivä': 'valueDate',
@@ -23,6 +23,8 @@ const converterMap = {
   'määrä': parseDecimal,
 };
 
+const collapseWS = (s) => R.trim(`${s}`.replace(/\s+/g, ' '));
+
 /**
  * Parse Nordea TSV exports.
  * @param data String data
@@ -31,7 +33,7 @@ const converterMap = {
 export default function parseNordea(data) {
   return new Promise((resolve) => {
     const meta = {};
-    const events = [];
+    const transactions = [];
     const lines = splitTSVLines(data);
     let fields = null;
 
@@ -47,18 +49,19 @@ export default function parseNordea(data) {
       if (line.length !== fields.length) {
         return;
       }
-      const event = R.pipe(
+      const txn = R.pipe(
         R.zip(fields),
         R.filter((pair) => pair[1] !== ''),
-        R.map(([field, value]) => [fieldNameMap[field] || field, (converterMap[field] || R.trim)(value)]),
+        R.map(([field, value]) => [fieldNameMap[field] || field, (converterMap[field] || collapseWS)(value)]),
         R.fromPairs
       )(line);
-      events.push(event);
+      txn.id = hashSimpleObject(txn);
+      transactions.push(txn);
     }
 
     function tick() {
       if (lines.length === 0) {
-        resolve({meta, events});
+        resolve({meta, transactions});
         return;
       }
       parseLine(lines.shift());

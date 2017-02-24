@@ -1,5 +1,8 @@
 import R from 'ramda';
 import padStart from 'lodash/padStart';
+import isString from 'lodash/isString';
+import isNumber from 'lodash/isNumber';
+import crypto from 'crypto';
 
 export const splitTSVLines = R.pipe(
   R.replace(/\r\n/g, '\n'),
@@ -15,3 +18,19 @@ export const parseFinnishDate = R.pipe(
 
 export const parseDecimal = (d) => parseFloat(d.replace(',', '.'));
 
+const hashSep = '\x1E';
+export const hashSimpleObject = (object, encoding = 'hex') => {
+  const hasher = crypto.createHash('sha1');
+  Object.keys(object).sort().forEach((key) => {
+    const value = object[key];
+    if (!(isString(value) || isNumber(value))) {
+      throw new Error(`unable to hash value ${value}`);
+    }
+    const sValue = `${value}`;
+    if (sValue.indexOf(hashSep) > -1) {
+      throw new Error(`${sValue} contains invalid character 0x1E`);
+    }
+    hasher.update(`${key.length}${hashSep}${key}${hashSep}${sValue}${hashSep}`);
+  });
+  return hasher.digest(encoding);
+};
