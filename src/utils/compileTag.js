@@ -1,13 +1,17 @@
 import R from 'ramda';
 import {isUndefined} from 'lodash';
+import {toLower, startsWith, escapeRegExp} from 'lodash';
+
+const icontains = (fieldValue, value) => toLower(fieldValue).indexOf(toLower(value)) > -1;
 
 const ops = {
-  '^=': (fieldValue, value) => fieldValue.indexOf(value) === 0,
-  '=': (fieldValue, value) => fieldValue === value,
-  '~=': (fieldValue, value) => fieldValue.indexOf(value) > -1,
+  '^=': (fieldValue, value) => startsWith(toLower(fieldValue), toLower(value)),
+  '=': (fieldValue, value) => toLower(fieldValue) === toLower(value),
+  '~=': icontains,
+  '=~': icontains,
 };
 
-const exprFnRe = new RegExp(`^(.+?)\s*(${Object.keys(ops).join('|')})\s*(.+)$`);
+const exprFnRe = new RegExp(`^(.+?)\\s*(${Object.keys(ops).map(escapeRegExp).join('|')})\\s*(.+)$`);
 const never = R.always(null);
 
 function compileMatcher(tag) {
