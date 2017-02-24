@@ -1,0 +1,13 @@
+html, body {
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+body {
+    display: flex;
+}
+
+#root {
+    flex: auto;
+    display: flex;
+}

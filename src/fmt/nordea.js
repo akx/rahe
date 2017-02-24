@@ -32,14 +32,14 @@ const collapseWS = (s) => R.trim(`${s}`.replace(/\s+/g, ' '));
  */
 export default function parseNordea(data) {
   return new Promise((resolve) => {
-    const meta = {};
+    let account = null;
     const transactions = [];
     const lines = splitTSVLines(data);
     let fields = null;
 
     function parseLine(line) {
       if (line[0] === 'Tilinumero') {
-        meta.account = line[1];
+        account = line[1];
         return;
       }
       if (fields === null) {
@@ -55,13 +55,14 @@ export default function parseNordea(data) {
         R.map(([field, value]) => [fieldNameMap[field] || field, (converterMap[field] || collapseWS)(value)]),
         R.fromPairs
       )(line);
+      txn.account = account;
       txn.id = hashSimpleObject(txn);
       transactions.push(txn);
     }
 
     function tick() {
       if (lines.length === 0) {
-        resolve({meta, transactions});
+        resolve(transactions);
         return;
       }
       parseLine(lines.shift());
