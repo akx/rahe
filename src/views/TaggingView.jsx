@@ -1,8 +1,9 @@
 /* eslint-env browser */
+/* eslint-disable jsx-a11y/href-no-hash */
 import React from 'react';
 import {connect} from 'react-redux';
 import {Flex, Box} from 'reflexbox';
-import {Input, Table, Button, AutoComplete} from 'antd';
+import {Input, Table, Button} from 'antd';
 import {truncate, debounce, uniq, identity} from 'lodash';
 
 import tagTransactions from '../utils/tagTransactions';
@@ -60,7 +61,6 @@ class TaggingView extends React.Component {
       (() => this.updateTagMatchCount())
     );
     this.tagCategoryInput.refs.input.focus();  // TODO: yigh, this is ugly
-
   }
 
   getTableColumns() {

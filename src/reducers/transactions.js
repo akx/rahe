@@ -15,4 +15,4 @@ export default function transactionsReducer(state = [], action) {
     return newTxns;
   }
   return state;
-};
+}

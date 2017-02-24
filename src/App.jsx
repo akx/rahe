@@ -1,9 +1,10 @@
+import {connect} from 'react-redux';
 import React from 'react';
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+
 import ImportView from './views/ImportView';
 import WelcomeView from './views/WelcomeView';
 import TaggingView from './views/TaggingView';
-import {connect} from 'react-redux';
 
 const {Content, Footer, Sider} = Layout;
 
@@ -30,7 +31,7 @@ const views = [
   },
 ];
 const viewMap = views.reduce((map, v) => {
-  map[v.id] = v;
+  map[v.id] = v;  // eslint-disable-line no-param-reassign
   return map;
 }, {});
 
@@ -53,7 +54,7 @@ const ViewMenu = ({selected, onSelect}) => (
 );
 
 
-class App extends React.Component {
+class App extends React.Component {  // eslint-disable-line react/prefer-stateless-function
   render() {
     const {viewId, dispatch} = this.props;
     const view = viewMap[viewId];
@@ -63,7 +64,7 @@ class App extends React.Component {
         <Sider>
           <ViewMenu
             selected={viewId}
-            onSelect={(viewId) => dispatch({type: 'NAVIGATE_MAIN', payload: viewId})}
+            onSelect={(newViewId) => dispatch({type: 'NAVIGATE_MAIN', payload: newViewId})}
           />
         </Sider>
         <Layout>

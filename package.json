@@ -5,7 +5,8 @@
   "author": "Aarni Koskela <akx@iki.fi>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --progress --open"
+    "dev": "webpack-dev-server --progress --open",
+    "lint": "./node_modules/.bin/eslint --ext .jsx --ext .js src"
   },
   "dependencies": {
     "antd": "^2.7.2",

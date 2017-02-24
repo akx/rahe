@@ -14,7 +14,8 @@ const readFile = (file, format, encoding = 'UTF-8') => new Promise((resolve, rej
   fr.onerror = () => reject(fr.error);
   fr.onload = () => resolve(fr.result);
   if (format === 'text') {
-    return fr.readAsText(file, encoding);
+    fr.readAsText(file, encoding);
+    return;
   }
   reject(new Error(`unknown format ${format}`));
 });
@@ -52,7 +53,6 @@ class ImportView extends React.Component {
       return;
     }
     this.props.dispatch({type: 'ADD_TRANSACTIONS', payload: data});
-
   }
 
   render() {

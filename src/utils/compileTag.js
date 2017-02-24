@@ -1,6 +1,5 @@
 import R from 'ramda';
-import {isUndefined} from 'lodash';
-import {toLower, startsWith, escapeRegExp} from 'lodash';
+import {isUndefined, toLower, startsWith, escapeRegExp} from 'lodash';
 
 const icontains = (fieldValue, value) => toLower(fieldValue).indexOf(toLower(value)) > -1;
 

@@ -7,4 +7,4 @@ export default function tagsReducer(state = [], action) {
     return [].concat(state).concat([tag]);
   }
   return state;
-};
+}
