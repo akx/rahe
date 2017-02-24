@@ -11,8 +11,9 @@ export default function () {
   )(rootReducer);
 
   const storage = adapter(window.localStorage);
-
-  const enhancer = compose(
+  // eslint-disable-next-line no-underscore-dangle
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const enhancer = composeEnhancers(
     /* applyMiddleware(...middlewares) */
     persistState(storage, 'rahe')
   );
