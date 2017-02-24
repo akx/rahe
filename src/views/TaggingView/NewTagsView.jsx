@@ -4,8 +4,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Flex, Box} from 'reflexbox';
 import {Input, Table, Button} from 'antd';
-import {truncate, debounce, uniq, identity} from 'lodash';
+import {truncate, debounce} from 'lodash';
 
+import QuickTagSelector from './QuickTagSelector';
 import tagTransactions from '../../utils/tagTransactions';
 import cmp from '../../utils/cmp';
 
@@ -130,7 +131,6 @@ class NewTagsView extends React.Component {
     const txnsMissingTags = taggedTransactions.filter((txn) => !txn.tags);
     const columns = this.getTableColumns();
     const nMatchingTxns = this.state.tagMatchCounts[this.state.tagExpr];
-    const autocompleteCategories = uniq(this.props.tags.map((tag) => tag.result.category).filter(identity)).sort();
     return (
       <Flex flexAuto>
         <Box style={{flex: 1}} pr={1}>
@@ -162,18 +162,11 @@ class NewTagsView extends React.Component {
               }
             }}
           />
-          <Box p={1}>
-            {autocompleteCategories.map((cat) => (
-              <Button
-                size="small"
-                key={cat}
-                style={{margin: '3px'}}
-                onClick={() => this.setState({tagCategory: cat})}
-              >
-                {cat}
-              </Button>
-            ))}
-          </Box>
+          <QuickTagSelector
+            tags={this.props.tags}
+            resultKey="category"
+            onSelect={(tag) => this.setState({tagCategory: tag})}
+          />
 
           <Button
             size="large"
