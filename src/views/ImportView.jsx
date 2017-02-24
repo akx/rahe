@@ -1,7 +1,7 @@
 /* eslint-env browser */
 import React from 'react';
 import {Alert, Radio, Form, Button, Icon} from 'antd';
-import first from 'lodash/first';
+import {first} from 'lodash';
 import {connect} from 'react-redux';
 
 import {importerList, importerMap} from '../fmt';

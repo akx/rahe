@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
   entry: './src',
   output: {
@@ -20,6 +22,13 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader'],
+      },
     ],
   },
+  plugins: [
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|fi/),
+  ],
 };

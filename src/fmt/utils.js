@@ -1,7 +1,5 @@
 import R from 'ramda';
-import padStart from 'lodash/padStart';
-import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
+import {isString, isNumber, padStart} from 'lodash';
 import crypto from 'crypto';
 
 export const splitTSVLines = R.pipe(
