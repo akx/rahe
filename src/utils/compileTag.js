@@ -5,7 +5,7 @@ const icontains = (fieldValue, value) => toLower(fieldValue).indexOf(toLower(val
 
 const ops = {
   '^=': (fieldValue, value) => startsWith(toLower(fieldValue), toLower(value)),
-  '=': (fieldValue, value) => toLower(fieldValue) === toLower(value),
+  '=': (fieldValue, value) => (value === fieldValue),// toLower(fieldValue) === toLower(value),
   '~=': icontains,
   '=~': icontains,
 };
