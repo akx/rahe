@@ -11,16 +11,16 @@
   "dependencies": {
     "antd": "^2.7.2",
     "babel-core": "^6.23.1",
-    "babel-loader": "^6.3.2",
+    "babel-loader": "^7.0.0",
     "babel-plugin-import": "^1.1.1",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-imports": "^1.1.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-react": "^6.23.0",
-    "css-loader": "^0.26.1",
+    "css-loader": "^0.28.1",
     "immutability-helper": "^2.1.2",
     "less": "^2.7.2",
-    "less-loader": "^2.2.3",
+    "less-loader": "^4.0.3",
     "lodash": "^4.17.4",
     "ramda": "^0.23.0",
     "react": "^15.4.2",
@@ -30,7 +30,7 @@
     "redux-localstorage": "rc",
     "reflexbox": "^2.2.3",
     "shortid": "^2.2.6",
-    "style-loader": "^0.13.1",
+    "style-loader": "^0.17.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1"
   },
@@ -38,9 +38,9 @@
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.1.1",
     "eslint": "^3.16.1",
-    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.0"
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1"
   }
 }
