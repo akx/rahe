@@ -10,6 +10,7 @@ export default function tagTransactions(transactions, tags, onlyMatching = false
       if (match) {
         Object.assign(mergedTags, match);
         didMatch = true;
+        break; // TODO: remove this when multiple tags are required
       }
     }
     if (didMatch) {
