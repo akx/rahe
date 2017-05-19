@@ -1,10 +1,11 @@
 import {connect} from 'react-redux';
 import React from 'react';
-import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+import {Breadcrumb, Icon, Layout, Menu} from 'antd';
 
 import ImportView from './views/ImportView';
 import WelcomeView from './views/WelcomeView';
 import TaggingView from './views/TaggingView';
+import ChartsView from './views/ChartsView';
 
 const {Content, Footer, Sider} = Layout;
 
@@ -28,6 +29,13 @@ const views = [
     menuTitle: 'Tagging',
     component: () => <TaggingView />,
     icon: 'tag',
+  },
+  {
+    id: 'charts',
+    title: 'Charts',
+    menuTitle: 'Charts',
+    component: () => <ChartsView />,
+    icon: 'dot-chart',
   },
 ];
 const viewMap = views.reduce((map, v) => {
