@@ -26,16 +26,22 @@ export default function tagTransactions(transactions, tags, onlyMatching = false
     function tick() {
       if (index >= transactions.length) {
         resolve(output);
-        return;
+        return false;
       }
       const processedTxn = processTransaction(transactions[index]);
       if (processedTxn !== null) {
         output.push(processedTxn);
       }
       index += 1;
-      process.nextTick(tick);
     }
 
-    tick();
+    function runBatch() {
+      for (let i = 0; i < 300; i++) {
+        if (tick() === false) return;
+      }
+      setTimeout(runBatch, 0);
+    }
+
+    setTimeout(runBatch, 0);
   });
 }
