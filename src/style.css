@@ -15,3 +15,7 @@ body {
 .column-money {
     text-align: right;
 }
+
+.txns-table tr td, .txns-table tr th {
+    padding: 3px !important;
+}

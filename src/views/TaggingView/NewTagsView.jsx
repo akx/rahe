@@ -207,10 +207,11 @@ class NewTagsView extends React.Component {
               <Table
                 columns={columns}
                 dataSource={txnsMissingTags}
-                size="middle"
+                size="small"
                 pagination={{defaultPageSize: 20}}
                 rowKey="id"
                 bordered
+                className="txns-table"
                 title={() => `${txnsMissingTags.length} untagged transactions`}
               />
             </Tabs.TabPane>
