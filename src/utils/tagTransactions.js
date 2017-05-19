@@ -1,12 +1,18 @@
-import {identity} from 'lodash';
 import compileTag from './compileTag';
 
 export default function tagTransactions(transactions, tags, onlyMatching = false) {
   const tagFns = tags.map(compileTag);
   const processTransaction = (txn) => {
-    const matches = tagFns.map((tagFn) => tagFn(txn)).filter(identity);
-    if (matches.length) {
-      const mergedTags = Object.assign.apply(null, [{}].concat(matches));
+    const mergedTags = {};
+    let didMatch = false;
+    for (let i = 0; i < tagFns.length; i++) {
+      const match = tagFns[i](txn);
+      if (match) {
+        Object.assign(mergedTags, match);
+        didMatch = true;
+      }
+    }
+    if (didMatch) {
       return Object.assign({tags: mergedTags}, txn);
     }
     if (onlyMatching) return null;
