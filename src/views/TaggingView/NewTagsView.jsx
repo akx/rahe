@@ -2,13 +2,37 @@
 /* eslint-disable jsx-a11y/href-no-hash */
 import React from 'react';
 import {connect} from 'react-redux';
-import {Flex, Box} from 'reflexbox';
-import {Input, Table, Button} from 'antd';
-import {truncate, debounce} from 'lodash';
+import {Box, Flex} from 'reflexbox';
+import {Button, Input, Table, Tabs} from 'antd';
+import {countBy, debounce, sortBy, toPairs, truncate} from 'lodash';
 
 import QuickTagSelector from './QuickTagSelector';
 import tagTransactions from '../../utils/tagTransactions';
 import cmp from '../../utils/cmp';
+
+class TopRecipientsTable extends React.PureComponent {
+  render() {
+    const {transactions, onClickRecipient} = this.props;
+    const topRecipients = sortBy(toPairs(countBy(transactions, (txn) => txn.recipient)), (pair) => -pair[1]);
+    return (
+      <table>
+        <tbody>
+          {topRecipients.slice(0, 20).map(([recipient, count]) => <tr key={recipient}>
+            <td>
+              <a
+                href="#"
+                onClick={() => onClickRecipient(recipient)}
+              >
+                {recipient} &rarr;
+              </a>
+            </td>
+            <td>{count}</td>
+          </tr>)}
+        </tbody>
+      </table>
+    );
+  }
+}
 
 class NewTagsView extends React.Component {
   constructor(props) {
@@ -178,15 +202,25 @@ class NewTagsView extends React.Component {
           </Button>
         </Box>
         <Box style={{flex: 2}} flex flexColumn>
-          <Table
-            columns={columns}
-            dataSource={txnsMissingTags}
-            size="middle"
-            pagination={{defaultPageSize: 20}}
-            rowKey="id"
-            bordered
-            title={() => `${txnsMissingTags.length} untagged transactions`}
-          />
+          <Tabs>
+            <Tabs.TabPane tab="Untagged Transactions" key="untagged">
+              <Table
+                columns={columns}
+                dataSource={txnsMissingTags}
+                size="middle"
+                pagination={{defaultPageSize: 20}}
+                rowKey="id"
+                bordered
+                title={() => `${txnsMissingTags.length} untagged transactions`}
+              />
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Top Recipients" key="topRecipients">
+              <TopRecipientsTable
+                transactions={txnsMissingTags}
+                onClickRecipient={(recipient) => this.setTagExprFromCopy('recipient', recipient)}
+              />
+            </Tabs.TabPane>
+          </Tabs>
         </Box>
       </Flex>
     );
