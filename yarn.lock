@@ -751,7 +751,7 @@ babel-helpers@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-loader@7:
+babel-loader@^7.0.0:
   version "7.1.5"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-7.1.5.tgz#e3ee0cd7394aa557e013b02d3e492bfd07aa6d68"
   integrity sha512-iCHfbieL5d1LfOQeeVJEUyD9rTwBcP/fcEbRCfempxTDuqrKpu0AZjLAQHEQa3Yqyj9ORKe2iHfoj4rHLf7xpw==
@@ -3083,6 +3083,15 @@ getpass@^0.1.1:
   integrity sha1-Xv+OPmhNVprkyysSgmBOi6YhSfo=
   dependencies:
     assert-plus "^1.0.0"
+
+ghpg@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ghpg/-/ghpg-1.0.1.tgz#3293d432be43d7c15fb1657389843238a42b8b3f"
+  integrity sha512-wbpvMwrGjugGoQ4vlnReMpZVWvO6uP0+W2eChGktTqHtgBSuUHfeChsRRbxYuNMv/h0OGvYTx2lBnY6dSqlIZA==
+  dependencies:
+    commander "^2.11.0"
+    glob "^7.1.2"
+    unorm "^1.4.1"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -6851,6 +6860,11 @@ unique-slug@^2.0.0:
   integrity sha512-n9cU6+gITaVu7VGj1Z8feKMmfAjEAQGhwD9fE3zvpRRa0wEIx8ODYkVGfSc94M2OX00tUFV8wH3zYbm1I8mxFg==
   dependencies:
     imurmurhash "^0.1.4"
+
+unorm@^1.4.1:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/unorm/-/unorm-1.5.0.tgz#01fa9b76f1c60f7916834605c032aa8962c3f00a"
+  integrity sha512-sMfSWoiRaXXeDZSXC+YRZ23H4xchQpwxjpw1tmfR+kgbBCaOgln4NI0LXejJIhnBuKINrB3WRn+ZI8IWssirVw==
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
