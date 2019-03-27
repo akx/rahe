@@ -6,22 +6,23 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --progress --open",
+    "build": "webpack --progress",
     "lint": "./node_modules/.bin/eslint --ext .jsx --ext .js src"
   },
   "dependencies": {
     "antd": "^2.7.2",
-    "babel-core": "^6.23.1",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.0.0",
-    "babel-plugin-import": "^1.1.1",
+    "babel-plugin-import": "^1.11.0",
     "babel-plugin-transform-class-properties": "^6.23.0",
-    "babel-plugin-transform-imports": "^1.1.0",
-    "babel-preset-env": "^1.1.8",
+    "babel-plugin-transform-imports": "^1.5.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.23.0",
     "chart.js": "^2.5.0",
-    "css-loader": "^0.28.1",
+    "css-loader": "^2.1.1",
     "immutability-helper": "^2.1.2",
     "less": "^2.7.2",
-    "less-loader": "^4.0.3",
+    "less-loader": "^4.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "ramda": "^0.23.0",
@@ -34,8 +35,8 @@
     "reflexbox": "^2.2.3",
     "shortid": "^2.2.6",
     "style-loader": "^0.17.0",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1"
+    "webpack": "^4.29.6",
+    "webpack-dev-server": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -44,6 +45,7 @@
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
-    "eslint-plugin-react": "^7.0.1"
+    "eslint-plugin-react": "^7.0.1",
+    "webpack-cli": "^3.3.0"
   }
 }
